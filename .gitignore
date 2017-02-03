@@ -1,0 +1,10 @@
+# Temporary
+.DS_Store
+*.~
+
+# IDE
+.idea
+
+# CMake
+cmake-build-debug
+build
