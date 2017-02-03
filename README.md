@@ -44,9 +44,25 @@ int main() {
 ```
 
 ## Adding as CMake subdirectory dependency
+Add the following lines to your ```CMakeLists.txt```.
 ```
 # Let's say the libdocker directory is lib/libdocker
-set(DOCKER_LIB_DIR 
+set(LIBDOCKER_DIR lib/libdocker)
+
+# Add subdirectory to compile the static library
+add_subdirectory(${LIBDOCKER_DIR})
+
+# Make sure CMake knows where the header files are
+target_include_directories(
+    ${PROJECT_NAME} PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}/${LIBDOCKER_DIR}/${DOCKER_INCLUDE_DIR}
+)
+
+# Link in the static library
+target_link_libraries(
+    ${PROJECT_NAME}
+    docker
+)
 ```
 
 ## Multi-threaded applications
