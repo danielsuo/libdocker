@@ -43,5 +43,11 @@ int main() {
 }
 ```
 
+## Adding as CMake subdirectory dependency
+```
+# Let's say the libdocker directory is lib/libdocker
+set(DOCKER_LIB_DIR 
+```
+
 ## Multi-threaded applications
 Should be fine, but be sure to have a look at ```curl```'s page on the subject (link [here](https://curl.haxx.se/libcurl/c/threadsafe.html)).
