@@ -4,12 +4,11 @@ project(libdocker)
 set(CMAKE_C_STANDARD 99)
 
 # Set target name and source files
-set (TARGET_NAME ${CMAKE_PROJECT_NAME})
 file (GLOB SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/**)
 
-add_library(${TARGET_NAME} ${SOURCE_FILES})
+add_library(libdocker ${SOURCE_FILES})
 
 target_link_libraries(
-    ${TARGET_NAME}
+    libdocker
     curl
 )
