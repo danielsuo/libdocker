@@ -107,3 +107,33 @@ CURLcode docker_get(DOCKER *client, char *url) {
   init_curl(client);
   return perform(client, url);
 }
+
+size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
+    size_t written = fwrite(ptr, size, nmemb, stream);
+    return written;
+}
+
+CURLcode docker_get_archive(DOCKER *client, char *url, char *tarfile) {
+  init_curl(client);
+  FILE *a;
+  a = fopen(tarfile,"wb");
+  curl_easy_setopt(client->curl, CURLOPT_URL, url);
+  curl_easy_setopt(client->curl, CURLOPT_WRITEFUNCTION, write_data);
+  curl_easy_setopt(client->curl, CURLOPT_WRITEDATA, a);
+  CURLcode response = perform(client, url);
+  fclose(a);
+  return response;
+}
+
+CURLcode docker_delete(DOCKER *client, char *url) {
+  init_curl(client);
+
+  struct curl_slist *headers = NULL;
+  headers = curl_slist_append(headers, "Content-Type: application/json");
+  curl_easy_setopt(client->curl, CURLOPT_HTTPHEADER, headers);
+  curl_easy_setopt(client->curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+  CURLcode response = perform(client, url);
+  curl_slist_free_all(headers);
+
+  return response;
+}
