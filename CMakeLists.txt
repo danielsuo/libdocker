@@ -1,12 +1,11 @@
 # cmake version
 cmake_minimum_required(VERSION 3.5)
 
+#cmake policy
+cmake_policy(SET CMP0015 NEW)
+
 # Project name.
-project(docker)
-
-set(CMAKE_C_STANDARD 99)
-set(DOCKER_INCLUDE_DIR src PARENT_SCOPE)
-
+project(cdocker)
 
 # Setting options.
 option(EXAMPLE_BUILD "Build using examples" ON)
@@ -14,14 +13,17 @@ option(EXAMPLE_BUILD "Build using examples" ON)
 set( CMAKE_INSTALL_LIBDIR /usr/lib )
 set( CMAKE_INSTALL_BINDIR /usr/bin )
 
+find_package(CURL REQUIRED)
 
-find_package(CURL_REQUIRED)
 
-add_subdirectory(./source)
+# Install docker.h to the /usr/include directory
+install(FILES source_code/CDOCKER/inc/docker.h PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE DESTINATION /usr/include)
+
+
+add_subdirectory(./source_code)
 if(EXAMPLE_BUILD)
-    add_subdirectory(./example)
+	add_subdirectory(./example)
 endif(EXAMPLE_BUILD)
-
 
 # Adding deb package build options.
 set(CPACK_PACKAGE_NAME "cdocker")
