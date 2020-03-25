@@ -1,12 +1,11 @@
 # cmake version
 cmake_minimum_required(VERSION 3.5)
 
+#cmake policy
+cmake_policy(SET CMP0015 NEW)
+
 # Project name.
-project(docker)
-
-set(CMAKE_C_STANDARD 99)
-set(DOCKER_INCLUDE_DIR src PARENT_SCOPE)
-
+project(cdocker)
 
 # Setting options.
 option(EXAMPLE_BUILD "Build using examples" ON)
@@ -14,8 +13,7 @@ option(EXAMPLE_BUILD "Build using examples" ON)
 set( CMAKE_INSTALL_LIBDIR /usr/lib )
 set( CMAKE_INSTALL_BINDIR /usr/bin )
 
-
-find_package(CURL_REQUIRED)
+find_package(CURL REQUIRED)
 
 add_subdirectory(./source)
 if(EXAMPLE_BUILD)
