@@ -1,4 +1,4 @@
-# ```libdocker```: an SDK for the Docker Engine API in C ( Hence removed the compatibility with cpp )
+# ```libdocker```: an SDK for the Docker Engine API in C
 
 A minimalist SDK for accessing the [Docker Engine API](https://docs.docker.com/engine/api/) via C.
 
