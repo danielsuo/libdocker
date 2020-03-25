@@ -15,7 +15,7 @@ A minimalist SDK for accessing the [Docker Engine API](https://docs.docker.com/e
  they can manually edit the base CMakeLists. In future, the compile script will accomodate the option.)
 - If the build is successful, then a deb package will be created in the build directory. Use the command ```sudo dpkg -i <deb package name>```
 to install the package.
-- This will add libcdockerinterface to the /usr/lib directory and the example executable cdockerinterfaceexample in /usr/bin
+- This will add libcdocker.so to the /usr/lib directory and the example executable cdocker_example in /usr/bin
 - Also this will add the docker.h header file to /usr/include. If anybody wants to just use the library for dev purpose, they can include it directly.
 - Use the sudo command to run the executable created.
 - To remove the package ( i.e. the .so file, the docker.h header and the example executable in future ), use the command ```sudo dpkg -r cdocker```
