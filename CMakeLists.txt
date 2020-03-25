@@ -15,11 +15,15 @@ set( CMAKE_INSTALL_BINDIR /usr/bin )
 
 find_package(CURL REQUIRED)
 
-add_subdirectory(./source)
-if(EXAMPLE_BUILD)
-    add_subdirectory(./example)
-endif(EXAMPLE_BUILD)
 
+# Install docker.h to the /usr/include directory
+install(FILES source_code/CDOCKER/inc/docker.h PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE DESTINATION /usr/include)
+
+
+add_subdirectory(./source_code)
+if(EXAMPLE_BUILD)
+	add_subdirectory(./example)
+endif(EXAMPLE_BUILD)
 
 # Adding deb package build options.
 set(CPACK_PACKAGE_NAME "cdocker")
