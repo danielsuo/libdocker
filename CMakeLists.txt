@@ -17,12 +17,49 @@ find_package(CURL REQUIRED)
 
 
 # Install docker.h to the /usr/include directory
-install(FILES source_code/CDOCKER/inc/docker.h PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE DESTINATION /usr/include)
+install(FILES inc/docker.h PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE DESTINATION /usr/include)
 
+# Including the headers to be used for building the SDK.
+include_directories(${CMAKE_CURRENT_LIST_DIR}/inc)
 
-add_subdirectory(./source_code)
+# The source files.
+SET(SRC_FILES
+    ${CMAKE_CURRENT_LIST_DIR}/src/docker.c
+)
+
+# The cdocker will be created as a .so
+add_library( cdocker SHARED ${SRC_FILES})
+
+# Linking with dependencies.
+target_link_libraries(
+    cdocker
+
+    -lcurl
+)
+
+# Installing in the target file as a library.
+INSTALL(
+    TARGETS cdocker
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    COMPONENT library
+)
+
+# If example build is enabled.
 if(EXAMPLE_BUILD)
-	add_subdirectory(./example)
+    include_directories(${CMAKE_SOURCE_DIR}/inc)
+
+    SET( SRC_FILES
+        ${CMAKE_CURRENT_LIST_DIR}/example/example.c
+    )
+
+    add_executable(cdocker_example ${SRC_FILES})
+
+    target_link_libraries(
+        cdocker_example
+        cdocker
+    )
+
+    install(TARGETS cdocker_example RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif(EXAMPLE_BUILD)
 
 # Adding deb package build options.

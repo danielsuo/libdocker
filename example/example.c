@@ -4,13 +4,12 @@
 
 int main() 
 {
-
-
   DOCKER *docker = docker_init("v1.25");
   CURLcode response;
 
   if (docker)
   {
+    printf("The following are the Docker images present in the system.\n");
     response = docker_get(docker, "http://v1.25/images/json");
     if (response == CURLE_OK)
     {
