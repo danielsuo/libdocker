@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.5)
 cmake_policy(SET CMP0015 NEW)
 
 # Project name.
-project(cdocker)
+project(docker)
 
 # Setting options.
 option(EXAMPLE_BUILD "Build using examples" ON)
@@ -28,18 +28,18 @@ SET(SRC_FILES
 )
 
 # The cdocker will be created as a .so
-add_library( cdocker SHARED ${SRC_FILES})
+add_library( docker SHARED ${SRC_FILES})
 
 # Linking with dependencies.
 target_link_libraries(
-    cdocker
+    docker
 
     -lcurl
 )
 
 # Installing in the target file as a library.
 INSTALL(
-    TARGETS cdocker
+    TARGETS docker
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     COMPONENT library
 )
@@ -52,18 +52,18 @@ if(EXAMPLE_BUILD)
         ${CMAKE_CURRENT_LIST_DIR}/example/example.c
     )
 
-    add_executable(cdocker_example ${SRC_FILES})
+    add_executable(docker_example ${SRC_FILES})
 
     target_link_libraries(
-        cdocker_example
-        cdocker
+        docker_example
+        docker
     )
 
-    install(TARGETS cdocker_example RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+    install(TARGETS docker_example RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif(EXAMPLE_BUILD)
 
 # Adding deb package build options.
-set(CPACK_PACKAGE_NAME "cdocker")
+set(CPACK_PACKAGE_NAME "docker_c_sdk")
 set(CDOCKER_VERSION_MAJOR 1)
 set(CDOCKER_VERSION_MINOR 0)
 set(CDOCKER_VERSION_PATCH 0)
