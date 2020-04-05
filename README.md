@@ -43,6 +43,13 @@ int main() {
 }
 ```
 
+The example above shown can be run as follows for a quick test on your environment setup
+```
+gcc test.c ./src/docker.c -o test -std=c99 -lcurl -I ./src
+./test
+```
+
+
 ## Adding as CMake subdirectory dependency
 Add the following lines to your ```CMakeLists.txt```.
 ```

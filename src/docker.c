@@ -107,3 +107,4 @@ CURLcode docker_get(DOCKER *client, char *url) {
   init_curl(client);
   return perform(client, url);
 }
+
