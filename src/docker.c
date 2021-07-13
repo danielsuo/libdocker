@@ -26,7 +26,7 @@ static size_t write_function(void *data, size_t size, size_t nmemb, void *buffer
 }
 
 void init_buffer(DOCKER *client) {
-  client->buffer->data = (char *) malloc(1);
+  client->buffer->data = NULL;
   client->buffer->size = 0;
 }
 
@@ -46,7 +46,7 @@ CURLcode perform(DOCKER *client, char *url) {
 }
 
 DOCKER *docker_init(char *version) {
-  size_t version_len = strlen(version);
+  size_t version_len = strlen(version)+1;
 
   if (version_len < 5) {
     fprintf(stderr, "WARNING: version malformed.");
@@ -56,7 +56,7 @@ DOCKER *docker_init(char *version) {
   DOCKER *client = (DOCKER *) malloc(sizeof(struct docker));
 
   client->buffer = (struct buffer *) malloc(sizeof(struct buffer));
-
+  init_buffer(client);
 
   client->version = (char *) malloc(sizeof(char) * version_len);
   if (client->version == NULL) {
