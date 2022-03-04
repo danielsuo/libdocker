@@ -31,6 +31,7 @@ typedef struct docker DOCKER;
 DOCKER *docker_init(char *version);
 int docker_destroy(DOCKER *docker_client);
 char *docker_buffer(DOCKER *docker_client);
+CURLcode docker_delete(DOCKER *docker_client, char *url);
 CURLcode docker_post(DOCKER *docker_client, char *url, char *data);
 CURLcode docker_get(DOCKER *docker_client, char *url);
 

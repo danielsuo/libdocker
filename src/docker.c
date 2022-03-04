@@ -90,6 +90,19 @@ char *docker_buffer(DOCKER *client) {
   return client->buffer->data;
 }
 
+CURLcode docker_delete(DOCKER *client, char *url) {
+  init_curl(client);
+
+  struct curl_slist *headers = NULL;
+  headers = curl_slist_append(headers, "Content-Type: application/json");
+  curl_easy_setopt(client->curl, CURLOPT_HTTPHEADER, headers);
+  curl_easy_setopt(client->curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+  CURLcode response = perform(client, url);
+  curl_slist_free_all(headers);
+
+  return response;
+}
+
 CURLcode docker_post(DOCKER *client, char *url, char *data) {
   init_curl(client);
 
