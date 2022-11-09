@@ -34,6 +34,9 @@ char *docker_buffer(DOCKER *docker_client);
 CURLcode docker_delete(DOCKER *docker_client, char *url);
 CURLcode docker_post(DOCKER *docker_client, char *url, char *data);
 CURLcode docker_get(DOCKER *docker_client, char *url);
+CURLcode docker_delete_with_http_status(DOCKER *docker_client, char *url, long *http_status);
+CURLcode docker_post_with_http_status(DOCKER *docker_client, char *url, char *data, long *http_status);
+CURLcode docker_get_with_http_status(DOCKER *docker_client, char *url, long *http_status);
 
 #ifdef __cplusplus
 }
