@@ -105,33 +105,33 @@ CURLcode docker_get(DOCKER *client, char *url) {
   return docker_get_with_http_status(client, url, NULL);
 }
 
-CURLcode docker_delete_with_http_status(DOCKER *client, char *url, long *http_status) {
+CURLcode docker_delete_with_http_status(DOCKER *client, char *url, long *out_http_status) {
   init_curl(client);
 
   struct curl_slist *headers = NULL;
   headers = curl_slist_append(headers, "Content-Type: application/json");
   curl_easy_setopt(client->curl, CURLOPT_HTTPHEADER, headers);
   curl_easy_setopt(client->curl, CURLOPT_CUSTOMREQUEST, "DELETE");
-  CURLcode response = perform(client, url, http_status);
+  CURLcode response = perform(client, url, out_http_status);
   curl_slist_free_all(headers);
 
   return response;
 }
 
-CURLcode docker_post_with_http_status(DOCKER *client, char *url, char *data, long *http_status) {
+CURLcode docker_post_with_http_status(DOCKER *client, char *url, char *data, long *out_http_status) {
   init_curl(client);
 
   struct curl_slist *headers = NULL;
   headers = curl_slist_append(headers, "Content-Type: application/json");
   curl_easy_setopt(client->curl, CURLOPT_HTTPHEADER, headers);
   curl_easy_setopt(client->curl, CURLOPT_POSTFIELDS, (void *)data);
-  CURLcode response = perform(client, url, http_status);
+  CURLcode response = perform(client, url, out_http_status);
   curl_slist_free_all(headers);
 
   return response;
 }
 
-CURLcode docker_get_with_http_status(DOCKER *client, char *url, long *http_status) {
+CURLcode docker_get_with_http_status(DOCKER *client, char *url, long *out_http_status) {
   init_curl(client);
-  return perform(client, url, http_status);
+  return perform(client, url, out_http_status);
 }

@@ -34,9 +34,37 @@ char *docker_buffer(DOCKER *docker_client);
 CURLcode docker_delete(DOCKER *docker_client, char *url);
 CURLcode docker_post(DOCKER *docker_client, char *url, char *data);
 CURLcode docker_get(DOCKER *docker_client, char *url);
-CURLcode docker_delete_with_http_status(DOCKER *docker_client, char *url, long *http_status);
-CURLcode docker_post_with_http_status(DOCKER *docker_client, char *url, char *data, long *http_status);
-CURLcode docker_get_with_http_status(DOCKER *docker_client, char *url, long *http_status);
+
+/**
+ * @brief Send a DELETE request to the Docker API and optionally capture the HTTP status code.
+ *
+ * @param[in] client Docker client context.
+ * @param[in] url API endpoint where the request is to be sent.
+ * @param[out] out_http_status HTTP status code returned by the API. Accepts NULL for cases when the status code is not desired.
+ * @return Curl error code (CURLE_OK on success).
+ */
+CURLcode docker_delete_with_http_status(DOCKER *docker_client, char *url, long *out_http_status);
+
+/**
+ * @brief Send a POST request to the Docker API and optionally capture the HTTP status code.
+ *
+ * @param[in] client Docker client context.
+ * @param[in] url API endpoint where the request is to be sent.
+ * @param[in] data POST request body.
+ * @param[out] out_http_status HTTP status code returned by the API. Accepts NULL for cases when the status code is not desired.
+ * @return Curl error code (CURLE_OK on success).
+ */
+CURLcode docker_post_with_http_status(DOCKER *docker_client, char *url, char *data, long *out_http_status);
+
+/**
+ * @brief Send a GET request to the Docker API and optionally capture the HTTP status code.
+ *
+ * @param[in] client Docker client context.
+ * @param[in] url API endpoint where the request is to be sent.
+ * @param[out] out_http_status HTTP status code returned by the API. Accepts NULL for cases when the status code is not desired.
+ * @return Curl error code (CURLE_OK on success).
+ */
+CURLcode docker_get_with_http_status(DOCKER *docker_client, char *url, long *out_http_status);
 
 #ifdef __cplusplus
 }
